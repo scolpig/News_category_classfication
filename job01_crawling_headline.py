@@ -28,4 +28,4 @@ print(df_titles.head())
 df_titles.info()
 print(df_titles['category'].value_counts())
 df_titles.to_csv('./crawling_data/naver_headline_news.csv', index=False)
-
+print('Hi')
