@@ -3,9 +3,8 @@ import requests
 import re
 import pandas as pd
 
-
 category = ['Politics', 'Economic', 'Social',
-            'Culture', 'World', 'IT' ]
+            'Culture', 'World', 'IT']
 
 url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=100'
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36'}
