@@ -25,15 +25,16 @@ driver = webdriver.Chrome('./chromedriver', options=option)
 driver.implicitly_wait(10)
 
 category = ['Politics', 'Economic', 'Social',
-            'Culture', 'IT', 'World']
+            'Culture', 'World', 'IT' ]
 page_num = [242, 374, 486, 71, 76, 125]
 #//*[@id="section_body"]/ul[3]/li[5]/dl/dt/a
 df_title = pd.DataFrame()
-for l in range(1, 2):
-    for k in range(1, page_num[l]+1):
+for l in range(2, 3):
+    title_list = []
+    for k in range(1, 141):
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(l, k)
-        title_list = []
         driver.get(url)
+
         #time.sleep(0.5)
         for j in range(1, 5):
             for i in range(1, 6):
