@@ -1,1 +1,1 @@
-print('jjjjjjjjjjjjjwwwww')
+print('jjjjjjjww')
