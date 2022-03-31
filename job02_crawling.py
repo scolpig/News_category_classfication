@@ -34,6 +34,8 @@ for l in range(2, 3):
     for k in range(1, 141):
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(l, k)
         driver.get(url)
+
+        #time.sleep(0.5)
         for j in range(1, 5):
             for i in range(1, 6):
                 try:
@@ -52,5 +54,5 @@ for l in range(2, 3):
 driver.close()
 df_title.info()
 print(df_title.category.value_counts())
-df_title.to_csv('./crawling_data/naver_news_title_e.csv')
+df_title.to_csv('./crawling_data/naver_news_title_20220330.csv')
 # naver_news_section명.csv
