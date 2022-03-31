@@ -8,19 +8,17 @@ from tensorflow.keras.utils import to_categorical
 import pickle
 from konlpy.tag import Kkma, Okt
 pd.set_option('display.unicode.east_asian_width', True)
-df = pd.read_csv('./crawling_data/naver_news_220330.csv')
-# print(df.head())
-# print(df.category.value_counts())
-df.info()
+df = pd.read_csv('./crawling_data/naver_headline_news220331.csv')
+print(df.head())
+
 X = df.title
 Y = df.category
 
-encoder = LabelEncoder()
-labeled_Y = encoder.fit_transform(Y)
+with open('./output/encoder.pickle', 'rb') as f:
+    encoder = pickle.load(f)
+labeled_Y = encoder.transform(Y)
 print(encoder.classes_)
-# print(labeled_Y[:5])
-# with open('./output/encoder.pickle', 'wb') as f:
-#     pickle.dump(encoder, f)
+print(labeled_Y[:5])
 
 onehot_Y = to_categorical(labeled_Y)
 print(onehot_Y)
@@ -40,41 +38,13 @@ for j in range(len(X)):
     X[j] = ' '.join(words)
 print(X[1])
 
-token = Tokenizer()
-token.fit_on_texts(X)
+with open('./output/news_token.pickle', 'rb') as f:
+    token = pickle.load(f)
 tokened_X = token.texts_to_sequences(X)
-print(tokened_X[0])
-with open('./output/news_token.pickle', 'wb') as f:
-    pickle.dump(token, f)
 
-wordsize = len(token.word_index) + 1
-print(wordsize)
-print(token.word_index)
-
-max = 0
 for i in range(len(tokened_X)):
-    if max < len(tokened_X[i]):
-        max = len(tokened_X[i])
-print(max)
-
-X_pad = pad_sequences(tokened_X, max)
-print(X_pad[:10])
-
-X_train, X_test, Y_train, Y_test = train_test_split(
-    X_pad, onehot_Y, test_size=0.1)
-print(X_train.shape, Y_train.shape)
-print(X_test.shape, Y_test.shape)
-
-xy = X_train, X_test, Y_train, Y_test
-np.save(
-    './crawling_data/news_data_max_{}_wordsize_{}'.format(
-        max, wordsize), xy)
-
-
-
-
-
-
-
+    if len(tokened_X[i]) > 29:
+        tokened_X[i] = tokened_X[i][:29]
+X_pad = pad_sequences(tokened_X, 29)
 
 
