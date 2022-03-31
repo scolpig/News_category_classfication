@@ -8,6 +8,12 @@
 
 필요한 프로젝트 하위 폴더: 'crawling_data', 'output' 
 
+파이썬 3.7버전
+
+버전 파일 :requirements.txt  
+
+
+
 
 
 project_root
@@ -15,3 +21,7 @@ project_root
 --crawling_data
 
 --output
+
+
+
+
