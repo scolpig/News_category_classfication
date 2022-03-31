@@ -9,8 +9,6 @@ import pickle
 from tensorflow.keras.models import load_model
 from konlpy.tag import Kkma, Okt
 
-
-
 pd.set_option('display.unicode.east_asian_width', True)
 df = pd.read_csv('./crawling_data/naver_headline_news220331.csv')
 # print(df.head())
@@ -68,3 +66,5 @@ print(df['OX'].value_counts()/len(df))
 for i in range(len(df)):
     if df.loc[i, 'OX'] == 'X' :
         print(df.loc[i])
+
+
