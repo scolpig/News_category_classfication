@@ -57,7 +57,7 @@ with open('./output/news_token.pickle', 'wb') as f:
 
 wordsize = len(token.word_index) + 1   #토큰해놓은 건 인덱스는 0없고 1부터인데, 우리가 0을 쓸 거라서 (?) +1을 함. 문장 자리수 맞추려고 앞에 0 채우는 거임.
 
-print(wordsize)
+print('wordsize', wordsize)
 # print(token.word_index)
 
 max = 0
