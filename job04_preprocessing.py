@@ -18,9 +18,9 @@ Y = df.category
 encoder = LabelEncoder()
 labeled_Y = encoder.fit_transform(Y)
 print(encoder.classes_)
-# print(labeled_Y[:5])
-# with open('./output/encoder.pickle', 'wb') as f:
-#     pickle.dump(encoder, f)
+print(labeled_Y[:5])
+with open('./output/encoder.pickle', 'wb') as f:
+    pickle.dump(encoder, f)
 
 onehot_Y = to_categorical(labeled_Y)
 print(onehot_Y)
