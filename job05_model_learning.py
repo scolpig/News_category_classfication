@@ -25,7 +25,7 @@ print(X_train.shape, Y_train.shape)
 print(X_test.shape, Y_test.shape)
 
 model = Sequential()
-model.add(Embedding(12740, 50, input_length=29))
+model.add(Embedding(12740, 300, input_length=29))
 model.add(Conv1D(32, kernel_size=5, padding='same',
                  activation='relu'))
 model.add(MaxPooling1D(pool_size=1))
@@ -44,12 +44,12 @@ model.add(Dense(6, activation='softmax'))
 model.summary()
 
 model.compile(loss='categorical_crossentropy',
-              optimizer='adam', metrics=['accuracy'])
-fit_hist = model.fit(X_train, Y_train, batch_size=10,
+              optimizer='adam', metrics=['acc'])
+fit_hist = model.fit(X_train, Y_train, batch_size=100,
     epochs=10, validation_data=(X_test, Y_test))
 model.save('./output/news_category_classfication_model_{}.h5'.format(
-    fit_hist.history['val_accuracy'][-1]))
-plt.plot(fit_hist.history['accuracy'], label='accuracy')
-plt.plot(fit_hist.history['val_accuracy'], label='val_accuracy')
+    fit_hist.history['val_acc'][-1]))
+plt.plot(fit_hist.history['acc'], label='accuracy')
+plt.plot(fit_hist.history['val_acc'], label='val_accuracy')
 plt.legend()
 plt.show()
