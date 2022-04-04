@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
+from tensorflow.keras.callbacks import EarlyStopping
 
 X_train, X_test, Y_train, Y_test = np.load(
     './crawling_data/news_data_max_29_word_size12831.npy',
@@ -11,7 +12,7 @@ print(X_train.shape, Y_train.shape)
 print(X_test.shape, Y_test.shape)
 
 model = Sequential()
-model.add(Embedding(12831, 300, input_length=29)) # 12537 =>단어의 개수, 전체의 단어가 12537, 각각의 단어에 값을 부여 12537개의 차원
+model.add(Embedding(12831, 1000, input_length=29)) # 12537 =>단어의 개수, 전체의 단어가 12537, 각각의 단어에 값을 부여 12537개의 차원
 #차원이 너무 많아지면 차원의 저주=> 차원이 늘어나면 data 간의 간격이 멀어진다 so 차원이 늘어날수록 data 가 많아야 한다. 그래서 300의 차원으로 조절하라
 #일반적으로 200~ 300 개 정도의 차원
 model.add(Conv1D(32, kernel_size=5, padding='same', activation = 'relu')) # 앞 뒤 간의 위치 관계(순서가 있는 data도 위치 관계를 볼 수 있다.)
@@ -29,7 +30,8 @@ model.add(Dense(6, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model.summary()
 
-fit_hist= model.fit(X_train, Y_train, batch_size=100, epochs= 30, verbose=1, validation_data = (X_test, Y_test))
+early_stopping = EarlyStopping(monitor='val_loss', patience=30)
+fit_hist= model.fit(X_train, Y_train, batch_size=100, epochs= 20, callbacks=[early_stopping], verbose=1, validation_data = (X_test, Y_test))
 
 model.save('./output/news_category_classification_model_{}.h5'.format(fit_hist.history['val_accuracy'][-1]))
 

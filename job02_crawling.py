@@ -43,6 +43,7 @@ for l in range(1,2):
     for k in range(1, 140+1):
     # for k in range(1, 3):
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(l, k)
+
         driver.get(url)
         time.sleep(0.5)
         for j in range(1, 5):
